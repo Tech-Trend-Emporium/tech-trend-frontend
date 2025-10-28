@@ -1,4 +1,4 @@
-# 🖥️ Tech Trend Emporium Frontend
+# 🖥️ Tech Trend Emporium
 
 This repository contains the **frontend application** for **Tech Trend Emporium**, built with **React 18**, **Vite**, and **TailwindCSS**.  
 It provides a **modern and responsive user interface** for interacting with the e-commerce backend.
