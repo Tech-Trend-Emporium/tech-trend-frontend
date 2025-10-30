@@ -1,10 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import "./index.css"
+import { AuthProvider } from "./hooks/auth/index.ts";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
-createRoot(document.getElementById('root')!).render(
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <RouterProvider router={ router } />
+    </AuthProvider>
   </StrictMode>,
 )
