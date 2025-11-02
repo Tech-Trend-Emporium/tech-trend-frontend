@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
             { path: "/sign-up", element: withSuspense(<SignUpPage />) },
 
             {
-                element: <ProtectedRoute />,
+                element: <ProtectedRoute allowRoles={ ["ADMIN", "EMPLOYEE"] } />,
                 children: [
                     { path: "/dashboard", element: withSuspense(<DashboardPage />) },
                 ],
@@ -37,9 +37,8 @@ export const router = createBrowserRouter([
                     { path: "/admin", element: withSuspense(<AdminPage />) },
                 ],
             },
-
-            { path: "/forbidden", element: withSuspense(<ForbiddenPage />) },
-            { path: "*", element: withSuspense(<NotFoundPage />) },
         ],
     },
+    { path: "/forbidden", element: withSuspense(<ForbiddenPage />) },
+    { path: "*", element: withSuspense(<NotFoundPage />) },
 ]);
