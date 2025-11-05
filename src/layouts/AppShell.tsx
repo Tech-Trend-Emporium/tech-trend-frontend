@@ -3,11 +3,16 @@ import { NavbarComponent } from "../components/organisms/Navbar";
 import { Outlet } from "react-router-dom";
 
 
+import { NavbarShopper } from "../components/organisms/ShopperNavbar";
+import { NavbarEmployee } from "../components/organisms/EmployeeNavbar";
+
 export const AppShell = () => {
     return (
         <div className="min-h-screen flex flex-col">
             <ExtraInfoOverNavbar />
-            <NavbarComponent />
+            {/* <NavbarComponent /> */}
+            <NavbarShopper />
+            <NavbarEmployee />
             <main className="flex-1 container mx-auto p-4">
                 <Outlet />
             </main>
