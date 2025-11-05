@@ -4,7 +4,7 @@ import Button from "../atoms/Button";
 export function ExtraInfoOverNavbar() {
     return (
         <Navbar fluid className="bg-black! py-1!">
-        <div className="w-full h-full flex justify-between items-center px-4">
+        <div className="w-full h-full flex justify-between items-center px-4 gap-2">
             <Button variant="outline" size="sm">USD</Button>
             <span className="text-sm font-bold! text-gray-600 dark:text-gray-300">
             FREE SHIPPING IN ORDERS OVER $50! NOV. 1-15.

@@ -35,7 +35,7 @@ export function NavbarComponent({ cartCount = 0 }: Props) {
             </span>
 
             {isShopper(auth.role) && (
-              <FBButton pill color="gray" size="sm" className="relative">
+              <FBButton pill color="gray" size="sm" className="relative hover:cursor-pointer">
                 <IoMdCart className="h-4 w-4" />
                 <span className="absolute -top-2 -right-2 text-[10px] rounded-full px-1 bg-blue-600 text-white">
                   {cartCount}
@@ -44,7 +44,12 @@ export function NavbarComponent({ cartCount = 0 }: Props) {
             )}
 
             {isEmployeeOrAdmin(auth.role) && (
-              <Button size="sm" className="hover:opacity-90" onClick={() => (location.href = "/portal")}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:opacity-90 hover:bg-blue-800! hover:cursor-pointer"
+                onClick={() => (location.href = "/portal")}
+              >
                 Employee Portal
               </Button>
             )}
