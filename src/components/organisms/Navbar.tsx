@@ -12,11 +12,15 @@ type Props = { cartCount?: number };
 export function NavbarComponent({ cartCount = 0 }: Props) {
   const { auth } = useAuth();
   const username = getDisplayNameFromToken(auth.accessToken);
+  const theme = localStorage.getItem("theme") || "light";
 
   return (
     <Navbar fluid>
       <NavbarBrand href="#">
-        <Logo className="mr-3 h-6 sm:h-9" text="white" />
+        {/* Dark logo */}
+        <Logo className="mr-3 h-6 sm:h-9 hidden dark:block" text="white" />
+        {/* Light logo */}
+        <Logo className="mr-3 h-6 sm:h-9 block dark:hidden" text="black" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           Tech Trend Emporium
         </span>
