@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { http } from "../../lib/http";
 import { setAuth, clearAuth, readFromStorage, setAuthCache } from "./useAuth";
-import type { AuthState, SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from "../../types/auth";
+import type { AuthState, SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from "../../models/auth";
 
 
 type AuthContextType = {

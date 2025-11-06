@@ -8,8 +8,9 @@ import {
 } from "flowbite-react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
-export function FooterComponent() {
-    const theme = localStorage.getItem('theme');
+
+export const FooterComponent = () => {
+  const theme = localStorage.getItem('theme');
 
   return (
     <Footer container className="bg-gray-200 text-gray-900 dark:bg-gray-900 dark:text-gray-700">
@@ -65,6 +66,4 @@ export function FooterComponent() {
       </div>
     </Footer>
   );
-}
-
-export default FooterComponent;
+};

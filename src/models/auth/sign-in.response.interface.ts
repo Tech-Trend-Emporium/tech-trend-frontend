@@ -1,7 +1,7 @@
 import type { Role } from ".";
 
 
-export interface SignInResponse {
+export interface SignInResponseRaw {
     accessToken: string;
     accessTokenExpiresAtUtc: string;   
     refreshToken: string;

@@ -1,4 +1,5 @@
-import Logo from "../components/atoms/Logo";
+import { Logo } from "../components/atoms/Logo";
+
 
 export const HomePage = () => {
     return (
