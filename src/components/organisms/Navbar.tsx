@@ -1,10 +1,9 @@
-
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
-import { Button, Logo } from "../atoms";
 import { SearchBar } from "../molecules";
+import { Button, Logo } from "../atoms";
 
 
-export const NavbarComponent = () => { 
+export const NavbarComponent = () => {
   return (
     <Navbar fluid>
       <NavbarBrand href="#">
@@ -24,4 +23,4 @@ export const NavbarComponent = () => {
       </NavbarCollapse>
     </Navbar>
   );
-};
+}

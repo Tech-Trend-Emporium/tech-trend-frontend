@@ -1,62 +1,43 @@
-import { Footer, FooterBrand, FooterCopyright, FooterDivider, FooterLink, FooterLinkGroup } from "flowbite-react";
+import { Footer, FooterCopyright, FooterDivider, FooterLink, FooterLinkGroup } from "flowbite-react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FooterBrand } from "../molecules";
 
 
 export const FooterComponent = () => {
-  const theme = localStorage.getItem('theme');
-
   return (
-    <Footer container className="bg-gray-200 text-gray-900 dark:bg-gray-900 dark:text-gray-700">
+    <Footer container className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
       <div className="w-full text-center">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4">
-          {theme == 'dark' ? (
-            <FooterBrand
-              href="#"
-              src="./logo-white-text.png"
-              alt="Tech Trend Logo"
-              name="Tech Trend Emporium"
-            />
-          ) : (
-            <FooterBrand
-              href="#"
-              src="./logo-black-text.png"
-              alt="Tech Trend Logo"
-              name="Tech Trend Emporium"
-            />
-          )}
+          <FooterBrand
+            href="#"
+            srcLight="./logo-black-text.png"
+            srcDark="./logo-white-text.png"
+            alt="Tech Trend Logo"
+            name="Tech Trend Emporium"
+            height={32}
+            className="shrink-0"        // keeps consistent position
+            imgClassName="h-8 w-auto"   // tweak as you like
+          />
 
           <FooterLinkGroup className="mt-4 sm:mt-0">
-            <FooterLink href="#">About</FooterLink>
-            <FooterLink href="#">Privacy Policy</FooterLink>
-            <FooterLink href="#">Licensing</FooterLink>
-            <FooterLink href="#">Contact</FooterLink>
+            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">About</FooterLink>
+            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">Privacy Policy</FooterLink>
+            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">Licensing</FooterLink>
+            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">Contact</FooterLink>
           </FooterLinkGroup>
         </div>
 
-        <FooterDivider className="border-gray-700 my-4" />
+        <FooterDivider className="my-4 border-gray-200 dark:border-gray-700" />
 
-        {/* Social Icons */}
         <div className="flex justify-center space-x-6 mb-4">
-          <a href="#" className="hover:text-white transition-colors dark:hover:text-white dark:text-gray-500">
-            <FaFacebookF size={18} />
-          </a>
-          <a href="#" className="hover:text-white transition-colors dark:hover:text-white dark:text-gray-500">
-            <FaTwitter size={18} />
-          </a>
-          <a href="#" className="hover:text-white transition-colors dark:hover:text-white dark:text-gray-500">
-            <FaInstagram size={18} />
-          </a>
-          <a href="#" className="hover:text-white transition-colors dark:hover:text-white dark:text-gray-500">
-            <FaLinkedinIn size={18} />
-          </a>
+          <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-white"><FaFacebookF size={18} /></a>
+          <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-white"><FaTwitter size={18} /></a>
+          <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-white"><FaInstagram size={18} /></a>
+          <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors dark:text-gray-400 dark:hover:text-white"><FaLinkedinIn size={18} /></a>
         </div>
 
-        <FooterCopyright
-          href="#"
-          by="Tech Trend Emporium™"
-          year={new Date().getFullYear()}
-        />
+        <FooterCopyright href="#" by="Tech Trend Emporium™" year={new Date().getFullYear()} />
       </div>
     </Footer>
   );
-};
+}
