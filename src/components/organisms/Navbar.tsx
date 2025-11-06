@@ -1,6 +1,6 @@
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, Button as FBButton } from "flowbite-react";
-import { Logo, Button,  } from "../atoms";
-import { SearchBar } from "../molecules/";
+import { Logo, Button } from "../../components/atoms";
+import { SearchBar } from "../molecules";
 import LogoutButton from "../atoms/LogoutButton";
 import { useAuth } from "../../hooks/auth/AuthProvider";
 import { isEmployeeOrAdmin, isShopper } from "../../utils/auth/role";
