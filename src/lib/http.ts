@@ -2,7 +2,7 @@ import axios from "axios";
 import { clearAuth, getAuth, setAuth } from "../hooks";
 
 
-const baseURL = import.meta.env.VITE_HTTP_BASE_URL!;
+const baseURL = import.meta.env.VITE_API_BASE_URL!;
 
 export const http = axios.create({
     baseURL,
