@@ -3,9 +3,9 @@ import type { Role } from ".";
 
 export interface AuthState {
     accessToken?: string;
-    accessTokenExpiresAtUtc?: string;
+    accessTokenExpiresAtUtc?: Date;
     refreshToken?: string;
-    refreshTokenExpiresAtUtc?: string;
+    refreshTokenExpiresAtUtc?: Date;
     role?: Role;
     sessionId?: number;
     isAuthenticated: boolean;

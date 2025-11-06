@@ -1,2 +1,2 @@
 export * from "./ErrorTemplate";
-export * from "./SignInTemplate";
+export * from "./AuthTemplate";

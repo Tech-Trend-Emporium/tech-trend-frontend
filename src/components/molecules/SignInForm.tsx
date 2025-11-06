@@ -1,4 +1,5 @@
-import { CheckboxField, InputField, SignButton } from "../atoms";
+import { CheckboxField, InputField } from "../atoms";
+import { Form } from "../organisms";
 
 
 interface SignInFormProps {
@@ -22,14 +23,24 @@ export const SignInForm = ({
   handleChange,
   handleSubmit,
 }: SignInFormProps) => (
-  <form onSubmit={handleSubmit}>
+  <Form
+    onSubmit={handleSubmit}
+    submitButton={{
+      text: "Log In",
+      disabled: !isFormValid || isLoading,
+      isLoading,
+      variant: "dark",
+    }}
+    errorMessage={errorMessage}
+  >
     <InputField
       id="emailOrUsername"
-      label="Email"
+      label="Email or Username"
       name="emailOrUsername"
       type="text"
       value={formData.emailOrUsername}
       onChange={handleChange}
+      placeholder="Enter your email or username"
     />
 
     <InputField
@@ -39,6 +50,7 @@ export const SignInForm = ({
       type="password"
       value={formData.password}
       onChange={handleChange}
+      placeholder="Enter your password"
     />
 
     <CheckboxField
@@ -48,18 +60,5 @@ export const SignInForm = ({
       checked={formData.rememberMe}
       onChange={handleChange}
     />
-
-    <SignButton
-      type="submit"
-      label="log in"
-      disabled={!isFormValid || isLoading}
-      isLoading={isLoading}
-    />
-
-    {errorMessage && (
-      <div className="mt-3 text-center text-red-600 text-sm font-medium">
-        {errorMessage}
-      </div>
-    )}
-  </form>
+  </Form>
 );
