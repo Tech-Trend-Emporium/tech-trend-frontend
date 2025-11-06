@@ -5,7 +5,7 @@ import { FooterBrand } from "../molecules";
 
 export const FooterComponent = () => {
   return (
-    <Footer container className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
+    <Footer container className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
       <div className="w-full text-center">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4">
           <FooterBrand
