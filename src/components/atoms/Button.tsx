@@ -1,5 +1,6 @@
 import React from "react";
 
+
 type ButtonVariant = "primary" | "secondary" | "outline" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -30,7 +31,7 @@ const sizeStyles: Record<ButtonSize, string> = {
   lg: "px-5 py-3 text-lg",
 };
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   size = "md",
   fullWidth = false,
@@ -54,5 +55,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-
-export default Button;

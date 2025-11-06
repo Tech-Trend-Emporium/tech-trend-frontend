@@ -75,5 +75,3 @@ export const FooterBrand = ({
     </a>
   );
 }
-
-export default FooterBrand;

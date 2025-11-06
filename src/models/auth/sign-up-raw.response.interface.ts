@@ -1,4 +1,4 @@
-export interface SignUpResponse {
+export interface SignUpResponseRaw {
     id: number;
     email: string;
     username: string;

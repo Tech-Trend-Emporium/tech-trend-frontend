@@ -1,14 +1,9 @@
-import {
-  Footer,
-  FooterCopyright,
-  FooterDivider,
-  FooterLink,
-  FooterLinkGroup,
-} from "flowbite-react";
+import { Footer, FooterCopyright, FooterDivider, FooterLink, FooterLinkGroup } from "flowbite-react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FooterBrand } from "../molecules";
 
-export function FooterComponent() {
+
+export const FooterComponent = () => {
   return (
     <Footer container className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">
       <div className="w-full text-center">
@@ -46,5 +41,3 @@ export function FooterComponent() {
     </Footer>
   );
 }
-
-export default FooterComponent;
