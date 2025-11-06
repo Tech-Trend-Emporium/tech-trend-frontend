@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     const signIn = useCallback(async (payload: SignInRequest) => {
-        const { data } = await http.post<SignInResponse>(`${AUTH_BASE}/sign-in`, payload);
+        const { data } = await http.post<SignInResponse>(`${ AUTH_BASE }/sign-in`, payload);
         const next: AuthState = { ...data, isAuthenticated: true };
 
         setAuthState(next);
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     const signUp = useCallback(async (payload: SignUpRequest) => {
-        const { data } = await http.post<SignUpResponse>(`${AUTH_BASE}/sign-up`, payload);
+        const { data } = await http.post<SignUpResponse>(`${ AUTH_BASE }/sign-up`, payload);
         return data;
     }, []);
 
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const refreshToken = stored?.refreshToken ?? auth.refreshToken;
         if (!refreshToken) throw new Error("No refresh token");
 
-        const { data } = await http.post<SignInResponse>(`${AUTH_BASE}/refresh`, { refreshToken });
+        const { data } = await http.post<SignInResponse>(`${ AUTH_BASE }/refresh`, { refreshToken });
         const next: AuthState = { ...data, isAuthenticated: true };
         
         setAuthState(next);

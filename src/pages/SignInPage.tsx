@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { AuthService } from "../services";
 import type { SignInRequest, SignInResponse } from "../models";
-import { SignInForm, SignInTemplate } from "../components";
+import { AuthTemplate, SignInForm } from "../components";
 
 
 export const SignInPage = () => {
@@ -78,8 +78,8 @@ export const SignInPage = () => {
   };
 
   return (
-    <SignInTemplate imageSrc="./icon.png">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
+    <AuthTemplate imageSrc="./icon.png" imageAlt="Sign up illustration">
+      <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
         Sign in
       </h2>
       <SignInForm
@@ -90,7 +90,7 @@ export const SignInPage = () => {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-    </SignInTemplate>
+    </AuthTemplate>
   );
 };
 
