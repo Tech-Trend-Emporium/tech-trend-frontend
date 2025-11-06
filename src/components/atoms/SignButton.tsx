@@ -1,5 +1,6 @@
 import { Button as FlowButton } from "flowbite-react";
 
+
 interface ButtonProps {
   type?: "button" | "submit";
   label: string;
@@ -7,7 +8,7 @@ interface ButtonProps {
   isLoading?: boolean;
 }
 
-export const Button = ({ type = "button", label, disabled, isLoading }: ButtonProps) => (
+export const SignButton = ({ type = "button", label, disabled, isLoading }: ButtonProps) => (
   <FlowButton
     type={type}
     disabled={disabled}

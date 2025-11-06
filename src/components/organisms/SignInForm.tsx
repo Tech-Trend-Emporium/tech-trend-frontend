@@ -1,6 +1,5 @@
-import { InputField } from "../atoms/InputField";
-import { CheckboxField } from "../atoms/CheckBoxField";
-import { Button } from "../atoms/SignButton";
+import { CheckboxField, InputField, SignButton } from "../atoms";
+
 
 interface SignInFormProps {
   formData: {
@@ -50,7 +49,7 @@ export const SignInForm = ({
       onChange={handleChange}
     />
 
-    <Button
+    <SignButton
       type="submit"
       label="log in"
       disabled={!isFormValid || isLoading}

@@ -1,5 +1,5 @@
-export * from "./approval-accepted.response.interface";
-export * from "./category.response.interface";
+export * from "./approval-accepted-raw.response.interface";
+export * from "./category-raw.response.interface";
 export * from "./category.response.type";
 export * from "./create-category.request.interface";
 export * from "./create-category.result.type";

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { SignInTemplate } from "../components/organisms/SignInFormImage";
-import { SignInForm } from "../components/molecules/SignInForm";
-import type { SignInRequest, SignInResponse } from "../types/auth";
 import { AuthService } from "../services";
+import type { SignInRequest, SignInResponse } from "../models";
+import { SignInForm, SignInTemplate } from "../components";
+
 
 export const SignInPage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  function checkData() {
+  const checkData = () => {
     const { emailOrUsername, password } = formData;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isEmailValid = emailRegex.test(emailOrUsername);
@@ -60,11 +60,10 @@ export const SignInPage = () => {
       sessionStorage.setItem("accessTokenCookie", response.accessToken);
       sessionStorage.setItem("refreshTokenCookie", response.refreshToken);
       sessionStorage.setItem("roleCookie", response.role);
-      console.log(response.role);
+      
       if (response.role === "ADMIN") {navigate("/sign-up")}
       if (response.role === "EMPLOYEE") {navigate("/products")}
       if (response.role === "SHOPPER") {navigate("/")}
-      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setErrorMessage(

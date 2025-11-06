@@ -1,5 +1,5 @@
 import { http } from "../lib/http";
-import type { ApprovalAcceptedRaw, ApprovalJobResponse, ApprovalJobResponseRaw, CategoryResponse, CategoryResponseRaw, CreateCategoryRequest, CreateCategoryResult, DeleteCategoryResult, Page, UpdateCategoryRequest } from "../models";
+import type { ApprovalAcceptedResponseRaw, ApprovalJobResponse, ApprovalJobResponseRaw, CategoryResponse, CategoryResponseRaw, CreateCategoryRequest, CreateCategoryResult, DeleteCategoryResult, Page, UpdateCategoryRequest } from "../models";
 
 
 const BASE = "/Category";
@@ -17,26 +17,28 @@ const mapApprovalJob = (j: ApprovalJobResponseRaw): ApprovalJobResponse => ({
 });
 
 export const CategoryService = {
-    getById: (id: number) =>
-        http.get<CategoryResponseRaw>(`${ BASE }/${ id }`).then(r => mapCategory(r.data)),
+    getById: (id: number) => {
+        return http.get<CategoryResponseRaw>(`${ BASE }/${ id }`).then(r => mapCategory(r.data));
+    },
 
-    list: (opts?: { skip?: number; take?: number }): Promise<Page<CategoryResponse>> =>
-        http.get<{ Total: number; Items: CategoryResponseRaw[] }>(`${ BASE }`, {
-                params: { skip: opts?.skip ?? 0, take: opts?.take ?? 50 },
-            })
-            .then(r => ({
-                total: r.data.Total,
-                items: r.data.Items.map(mapCategory),
-            })),
+    list: (opts?: { skip?: number; take?: number }): Promise<Page<CategoryResponse>> => {
+        return http.get<{ Total: number; Items: CategoryResponseRaw[] }>(`${ BASE }`, {
+                        params: { skip: opts?.skip ?? 0, take: opts?.take ?? 50 },
+                    })
+                    .then(r => ({
+                        total: r.data.Total,
+                        items: r.data.Items.map(mapCategory),
+                    }));
+    },
 
     create: async (payload: CreateCategoryRequest): Promise<CreateCategoryResult> => {
-        const res = await http.post<CategoryResponseRaw | ApprovalAcceptedRaw<ApprovalJobResponseRaw>>(
+        const res = await http.post<CategoryResponseRaw | ApprovalAcceptedResponseRaw<ApprovalJobResponseRaw>>(
             `${ BASE }`,
             payload
         );
 
         if (res.status === 202) {
-            const body = res.data as ApprovalAcceptedRaw<ApprovalJobResponseRaw>;
+            const body = res.data as ApprovalAcceptedResponseRaw<ApprovalJobResponseRaw>;
             return {
                 kind: "accepted",
                 data: { message: body.message, approvalJob: mapApprovalJob(body.approvalJob) },
@@ -46,14 +48,15 @@ export const CategoryService = {
         return { kind: "created", data: mapCategory(res.data as CategoryResponseRaw) };
     },
 
-    update: (id: number, payload: UpdateCategoryRequest) =>
-        http.put<CategoryResponseRaw>(`${ BASE }/${ id }`, payload).then(r => mapCategory(r.data)),
+    update: (id: number, payload: UpdateCategoryRequest) => {
+        return http.put<CategoryResponseRaw>(`${ BASE }/${ id }`, payload).then(r => mapCategory(r.data));
+    },
 
     remove: async (id: number): Promise<DeleteCategoryResult> => {
-        const res = await http.delete<void | ApprovalAcceptedRaw<ApprovalJobResponseRaw>>(`${ BASE }/${ id }`);
+        const res = await http.delete<void | ApprovalAcceptedResponseRaw<ApprovalJobResponseRaw>>(`${ BASE }/${ id }`);
 
         if (res.status === 202) {
-            const body = res.data as ApprovalAcceptedRaw<ApprovalJobResponseRaw>;
+            const body = res.data as ApprovalAcceptedResponseRaw<ApprovalJobResponseRaw>;
             return {
                 kind: "accepted",
                 data: { message: body.message, approvalJob: mapApprovalJob(body.approvalJob) },

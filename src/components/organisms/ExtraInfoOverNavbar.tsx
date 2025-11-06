@@ -1,4 +1,4 @@
-import { Navbar, NavbarLink} from "flowbite-react";
+import { Navbar, NavbarLink } from "flowbite-react";
 import { Button } from "../atoms";
 
 

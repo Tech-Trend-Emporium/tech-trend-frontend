@@ -16,36 +16,45 @@ const mapOrder = (o: OrderResponseRaw): OrderResponse => ({
 });
 
 export const CartService = {
-    get: () =>
-        http.get<CartResponseRaw>(`${ BASE }`).then(r => mapCart(r.data)),
+    get: () => {
+        return http.get<CartResponseRaw>(`${ BASE }`).then(r => mapCart(r.data));
+    },
 
-    addItem: (payload: AddCartItemRequest) =>
-        http.post<CartResponseRaw>(`${ BASE }/items`, payload).then(r => mapCart(r.data)),
+    addItem: (payload: AddCartItemRequest) => {
+        return http.post<CartResponseRaw>(`${ BASE }/items`, payload).then(r => mapCart(r.data));
+    },
 
-    updateQuantity: (payload: UpdateCartItemRequest) =>
-        http.put<CartResponseRaw>(`${ BASE }/items`, payload).then(r => mapCart(r.data)),
+    updateQuantity: (payload: UpdateCartItemRequest) => {
+        return http.put<CartResponseRaw>(`${ BASE }/items`, payload).then(r => mapCart(r.data));
+    },
 
-    removeItem: (productId: number) =>
-        http.delete<CartResponseRaw>(`${ BASE }/items/${ productId }`).then(r => mapCart(r.data)),
+    removeItem: (productId: number) => {
+        return http.delete<CartResponseRaw>(`${ BASE }/items/${ productId }`).then(r => mapCart(r.data));
+    },
 
-    clear: () =>
-        http.post<CartResponseRaw>(`${ BASE }/clear`).then(r => mapCart(r.data)),
+    clear: () => {
+        return http.post<CartResponseRaw>(`${ BASE }/clear`).then(r => mapCart(r.data));
+    },
 
-    applyCoupon: (payload: ApplyCouponRequest) =>
-        http.post<CartResponseRaw>(`${ BASE }/coupon`, payload).then(r => mapCart(r.data)),
+    applyCoupon: (payload: ApplyCouponRequest) => {
+        return http.post<CartResponseRaw>(`${ BASE }/coupon`, payload).then(r => mapCart(r.data));
+    },
 
-    removeCoupon: () =>
-        http.delete<CartResponseRaw>(`${ BASE }/coupon`).then(r => mapCart(r.data)),
+    removeCoupon: () => {
+        return http.delete<CartResponseRaw>(`${ BASE }/coupon`).then(r => mapCart(r.data));
+    },
 
-    checkout: (payload: CheckoutRequest) =>
-        http.post<void>(`${ BASE }/checkout`, payload).then(r => r.data),
+    checkout: (payload: CheckoutRequest) => {
+        return http.post<void>(`${ BASE }/checkout`, payload).then(r => r.data);
+    },
 
-    listMyOrders: (opts?: { skip?: number; take?: number }): Promise<Page<OrderResponse>> =>
-        http.get<Page<OrderResponseRaw>>(`${ BASE }/orders`, {
-                params: { skip: opts?.skip ?? 0, take: opts?.take ?? 50 },
-            })
-            .then(r => ({
-                total: r.data.total,
-                items: r.data.items.map(mapOrder),
-            })),
+    listMyOrders: (opts?: { skip?: number; take?: number }): Promise<Page<OrderResponse>> => {
+        return http.get<Page<OrderResponseRaw>>(`${ BASE }/orders`, {
+                        params: { skip: opts?.skip ?? 0, take: opts?.take ?? 50 },
+                    })
+                    .then(r => ({
+                        total: r.data.total,
+                        items: r.data.items.map(mapOrder),
+                    }));
+    },
 };
