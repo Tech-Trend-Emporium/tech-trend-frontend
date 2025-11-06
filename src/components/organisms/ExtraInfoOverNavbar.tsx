@@ -14,3 +14,4 @@ export function ExtraInfoOverNavbar() {
         </Navbar>
     );
 }
+export default ExtraInfoOverNavbar;
