@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
+
 type SearchBarProps = {
   placeholder?: string;
   value?: string; // make it controllable if you want
@@ -11,7 +12,7 @@ type SearchBarProps = {
   inputId?: string; // in case you need multiple on a page
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({
+export const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "Search…",
   value,
   onChange,

@@ -1,7 +1,8 @@
 import { Navbar, NavbarLink} from "flowbite-react";
-import Button from "../atoms/Button";
+import { Button } from "../atoms";
 
-export function ExtraInfoOverNavbar() {
+
+export const ExtraInfoOverNavbar = () => {
     return (
         <Navbar fluid className="bg-black! py-1!">
         <div className="w-full h-full flex justify-between items-center px-4 gap-2">

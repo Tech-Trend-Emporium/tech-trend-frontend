@@ -7,9 +7,7 @@ export const ProtectedRoute = ({ allowRoles }: { allowRoles?: string[] }) => {
 
     if (!auth.isAuthenticated) {
         return <Navigate to="/sign-in" replace />;
-    }
-
-    if (allowRoles && auth.role && !allowRoles.includes(auth.role)) {
+    } if (allowRoles && auth.role && !allowRoles.includes(auth.role)) {
         return <Navigate to="/forbidden" replace />;
     }
 
