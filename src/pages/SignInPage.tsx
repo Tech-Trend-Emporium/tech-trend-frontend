@@ -7,6 +7,7 @@ import type { SignInRequest, SignInResponse } from "../models";
 import { AuthTemplate, SignInForm } from "../components";
 
 
+
 export const SignInPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -17,6 +18,38 @@ export const SignInPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+
+    //Checks if token exists
+    const token = Cookies.get("refreshTokenCookie");
+
+    if (token) {
+      console.log("Cookie already exists, we're validating token");
+
+      // Checks if the token is valid
+      AuthService.refresh(token)
+        .then((res) => {
+          Cookies.set("accessTokenCookie", res.accessToken, { expires: 7 });
+            Cookies.set("refreshTokenCookie", res.refreshToken, { expires: 7 });
+            Cookies.set("roleCookie", res.role, { expires: 7 });
+
+            sessionStorage.setItem("accessTokenCookie", res.accessToken);
+            sessionStorage.setItem("refreshTokenCookie", res.refreshToken);
+            sessionStorage.setItem("roleCookie", res.role);
+
+            if (res.role === "ADMIN") {navigate("/sign-up")}
+            if (res.role === "EMPLOYEE") {navigate("/products")}
+            if (res.role === "SHOPPER") {navigate("/")}
+        })
+        .catch((err) => {
+          console.warn("Invalid or expired cookie, sign in please");
+          Cookies.remove("accessTokenCookie");
+          Cookies.remove("refreshTokenCookie");
+          Cookies.remove("roleCookie");
+        });
+    }
+  }, [navigate]);
 
   const checkData = () => {
     const { emailOrUsername, password } = formData;
@@ -54,7 +87,7 @@ export const SignInPage = () => {
       if (formData.rememberMe) {
         Cookies.set("accessTokenCookie", response.accessToken, { expires: 7 });
         Cookies.set("refreshTokenCookie", response.refreshToken, { expires: 7 });
-        Cookies.set("roleCookie", response.role, { expires: 7 });
+        Cookies.set("roleCookie", response.role, { expires: 7 });        
       }
 
       sessionStorage.setItem("accessTokenCookie", response.accessToken);
