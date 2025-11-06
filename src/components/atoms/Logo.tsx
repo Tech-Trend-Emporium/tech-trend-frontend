@@ -7,3 +7,5 @@ export const Logo = ({ className = "w-24 h-auto" , text = "white" }) => {
     />
   );
 };
+
+export default Logo;
