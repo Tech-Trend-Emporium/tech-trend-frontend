@@ -1,16 +1,20 @@
-
+// LogoutButton.tsx
 import { Button } from "flowbite-react";
-import { clearAuth } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks"; // same import style as SignInPage
+import { clearAuth } from "../../services/auth";
 
 export default function LogoutButton() {
     const navigate = useNavigate();
+    const { signOut } = useAuth();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         try {
-            clearAuth();
+            // end all sessions on the server; this also clears local auth and flips context state
+            await signOut({ allSessions: true });
+            // ^ AuthProvider does: clearAuth(); setAuthState({ isAuthenticated: false }). Triggers rerender for all subscribers
         } finally {
-            // ensure user is redirected even if clearAuth throws
+            clearAuth();
             navigate("/", { replace: true });
         }
     };

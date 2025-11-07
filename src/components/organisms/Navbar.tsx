@@ -32,7 +32,7 @@ export function NavbarComponent({ cartCount = 0 }: Props) {
         ) : (
           <>
             <span className="text-sm font-semibold text-gray-600 dark:text-gray-300 mr-2">
-              {role ? (auth.role === "ADMIN" ? "Admin" : "Employee") : "Shopper"}
+              {role === "SHOPPER" ? "User" : role === "EMPLOYEE" ? "Employee" : "Admin"}
               {username ? ` · ${username}` : ""}
             </span>
 
@@ -50,7 +50,7 @@ export function NavbarComponent({ cartCount = 0 }: Props) {
                 variant="outline"
                 size="sm"
                 className="hover:opacity-90 hover:bg-blue-800! hover:cursor-pointer"
-                onClick={() => (location.href = "/portal")}
+                onClick={() => (location.href = "/dashboard")}
               >
                 Employee Portal
               </Button>

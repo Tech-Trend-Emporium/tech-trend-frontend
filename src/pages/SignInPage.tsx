@@ -65,8 +65,8 @@ export const SignInPage = () => {
       }
 
       if (stored.role === "ADMIN") { navigate("/sign-up") }
-      if (stored.role === "EMPLOYEE") { navigate("/products") }
-      if (stored.role === "SHOPPER") { navigate("/") }
+      if (stored.role === "EMPLOYEE") { navigate("/dashboard") }
+      if (stored.role === "SHOPPER") { navigate("/products") }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setErrorMessage(
