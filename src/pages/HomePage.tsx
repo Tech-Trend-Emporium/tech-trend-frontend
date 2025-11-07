@@ -3,6 +3,7 @@ import { CarouselComponent, ItemCard } from "../components/molecules";
 import { useAuth } from "../hooks";
 import { Button } from "../components/atoms";
 
+
 export const HomePage = () => {
   const user = useAuth();
 

@@ -1,13 +1,15 @@
 import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, Button as FBButton, Badge } from "flowbite-react";
 import { Logo, Button } from "../../components/atoms";
 import { SearchBar } from "../molecules";
-import LogoutButton from "../atoms/LogoutButton";
+import { LogoutButton } from "../atoms/LogoutButton";
 import { useAuth } from "../../hooks/auth/AuthProvider";
 import { IoMdCart } from "react-icons/io";
-import { userNameFromToken, roleFromToken } from "../../services/auth";
+import { userNameFromToken, roleFromToken } from "../../services";
+
 
 type Props = { cartCount?: number };
-export function NavbarComponent({ cartCount = 0 }: Props) {
+
+export const NavbarComponent = ({ cartCount = 0 }: Props) => {
   const { auth } = useAuth();
   const username = userNameFromToken(auth);
   const role = roleFromToken(auth);
@@ -71,4 +73,4 @@ export function NavbarComponent({ cartCount = 0 }: Props) {
       </NavbarCollapse>
     </Navbar>
   );
-}
+};

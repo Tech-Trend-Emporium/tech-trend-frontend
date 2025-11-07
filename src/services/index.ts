@@ -7,5 +7,6 @@ export * from "./inventory.service";
 export * from "./product.service";
 export * from "./recovery-question.service";
 export * from "./review.service";
+export * from "./storage.service";
 export * from "./user.service";
 export * from "./wishlist.service";
