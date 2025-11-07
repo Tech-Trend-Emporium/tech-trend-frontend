@@ -33,6 +33,7 @@ export const SignUpForm = ({
             variant: "dark",
         }}
         errorMessage={errorMessage}
+        className="space-y-1"
     >
         <InputField
             id="username"
@@ -41,7 +42,7 @@ export const SignUpForm = ({
             type="text"
             value={formData.username}
             onChange={handleChange}
-            placeholder="Enter your username"
+            placeholder="Choose a unique username"
         />
 
         <InputField
@@ -51,7 +52,7 @@ export const SignUpForm = ({
             type="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Enter your email"
+            placeholder="your.email@example.com"
         />
 
         <InputField
@@ -61,7 +62,7 @@ export const SignUpForm = ({
             type="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Enter your password"
+            placeholder="Create a strong password"
         />
 
         <InputField
@@ -71,7 +72,7 @@ export const SignUpForm = ({
             type="password"
             value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Confirm your password"
+            placeholder="Re-enter your password"
         />
     </Form>
 );
