@@ -1,6 +1,5 @@
 import type { Role } from ".";
 
-
 export interface AuthState {
     accessToken?: string;
     accessTokenExpiresAtUtc?: Date;
