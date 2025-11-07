@@ -4,7 +4,7 @@ interface cardProps {
     price: number;
 }
 
-export function ItemCard({ image, title, price }: cardProps) {
+export const ItemCard = ({ image, title, price }: cardProps) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden 
                     hover:shadow-lg 
@@ -30,5 +30,4 @@ export function ItemCard({ image, title, price }: cardProps) {
       </div>
     </div>
   );
-}
-export default ItemCard;
+};
