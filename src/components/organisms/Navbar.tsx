@@ -5,11 +5,13 @@ import { LogoutButton } from "../atoms/LogoutButton";
 import { useAuth } from "../../hooks/auth/AuthProvider";
 import { IoMdCart } from "react-icons/io";
 import { userNameFromToken, roleFromToken } from "../../services";
+import { useNavigate } from "react-router-dom";
 
 
 type Props = { cartCount?: number };
 
 export const NavbarComponent = ({ cartCount = 0 }: Props) => {
+  const navigate = useNavigate();
   const { auth } = useAuth();
   const username = userNameFromToken(auth);
   const role = roleFromToken(auth);
@@ -77,15 +79,16 @@ export const NavbarComponent = ({ cartCount = 0 }: Props) => {
                 </FBButton>
               )}
 
-              {(role === 'EMPLOYEE' || role === 'ADMIN') && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => (location.href = "/dashboard")}
-                >
-                  Employee Portal
-                </Button>
-              )}
+            {(role === 'EMPLOYEE' || role === 'ADMIN') && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:opacity-90 hover:bg-blue-800! hover:cursor-pointer"
+                onClick={() => (navigate("/dashboard"))}
+              >
+                Employee Portal
+              </Button>
+            )}
 
               <LogoutButton />
             </>
