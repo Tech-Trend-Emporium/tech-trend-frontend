@@ -3,4 +3,5 @@ export * from "./CheckBoxField";
 export * from "./ErrorCode";
 export * from "./ErrorIcon";
 export * from "./InputField";
+export * from "./ItemCard";
 export * from "./Logo";

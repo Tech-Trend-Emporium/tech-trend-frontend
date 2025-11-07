@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { CarouselComponent, ItemCard } from "../components/molecules";
+import { CarouselComponent, ItemCard, Button } from "../components";
 import { useAuth } from "../hooks";
-import { Button } from "../components/atoms";
 
 
 export const HomePage = () => {
@@ -68,51 +67,55 @@ export const HomePage = () => {
       <CarouselComponent />
 
       {/* Categories section */}
-      <h2 className="text-2xl font-semibold text-center mt-6 text-gray-800 dark:text-gray-200">
-        Categories
-      </h2>
-      <span className="text-gray-600 dark:text-gray-400 flex justify-center mt-2 px-4 text-center">
-        These are all the categories available in Tech Trend Emporium.
-        <br />
-        Select one to explore the products within that category.
-      </span>
-      <div className="flex justify-center">
-        <Button
-          variant="outline"
-          className="mt-4 mx-auto hover:text-black hover:font-semibold hover:cursor-pointer hover:bg-blue-500!"
-        >
-          Shop All
-        </Button>
-      </div>
+      <div className="mt-12 mb-12">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-gray-200">
+          Categories
+        </h2>
+        <span className="text-gray-600 dark:text-gray-400 flex justify-center mt-2 px-4 text-center">
+          These are all the categories available in Tech Trend Emporium.
+          <br />
+          Select one to explore the products within that category.
+        </span>
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            className="mt-4 hover:cursor-pointer"
+          >
+            Shop All
+          </Button>
+        </div>
 
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 md:px-12">
-        {mockItems.map((item) => (
-          <ItemCard
-            key={item.id}
-            image={item.image}
-            title={item.title}
-            price={item.price}
-          />
-        ))}
+        <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 md:px-12 mx-auto max-w-6xl">
+          {mockItems.map((item) => (
+            <ItemCard
+              key={item.id}
+              image={item.image}
+              title={item.title}
+              price={item.price}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Latest Arrivals section */}
-      <h2 className="text-2xl font-semibold text-center mt-12 text-gray-800 dark:text-gray-200">
-        Our Latest Arrivals
-      </h2>
-      <span className="text-gray-600 dark:text-gray-400 flex justify-center mt-2 px-4 text-center">
-        Check out the newest products recently added to Tech Trend Emporium.
-      </span>
+      <div className="mt-12 mb-12">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-gray-200">
+          Our Latest Arrivals
+        </h2>
+        <span className="text-gray-600 dark:text-gray-400 flex justify-center mt-2 px-4 text-center">
+          Check out the newest products recently added to Tech Trend Emporium.
+        </span>
 
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 md:px-12">
-        {latestArrivals.map((item) => (
-          <ItemCard
-            key={item.id}
-            image={item.image}
-            title={item.title}
-            price={item.price}
-          />
-        ))}
+        <div className="mb-6 mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 md:px-12 mx-auto max-w-7xl">
+          {latestArrivals.map((item) => (
+            <ItemCard
+              key={item.id}
+              image={item.image}
+              title={item.title}
+              price={item.price}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

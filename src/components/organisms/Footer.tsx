@@ -5,6 +5,7 @@ import { FooterBrand } from "../molecules";
 
 export const FooterComponent = () => {
   return (
+
     <Footer container className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
       <div className="w-full text-center">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4">
@@ -20,10 +21,10 @@ export const FooterComponent = () => {
           />
 
           <FooterLinkGroup className="mt-4 sm:mt-0">
-            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">About</FooterLink>
-            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">Privacy Policy</FooterLink>
-            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">Licensing</FooterLink>
-            <FooterLink href="#" className="hover:text-gray-900 dark:hover:text-blue-500">Contact</FooterLink>
+            <FooterLink href="#" className="footer-link-custom">About</FooterLink>
+            <FooterLink href="#" className="footer-link-custom">Privacy Policy</FooterLink>
+            <FooterLink href="#" className="footer-link-custom">Licensing</FooterLink>
+            <FooterLink href="#" className="footer-link-custom">Contact</FooterLink>
           </FooterLinkGroup>
         </div>
 
