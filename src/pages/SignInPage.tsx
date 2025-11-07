@@ -64,7 +64,7 @@ export const SignInPage = () => {
         sessionStorage.setItem("refreshToken", stored.refreshToken);
       }
 
-      if (stored.role === "ADMIN") { navigate("/sign-up") }
+      if (stored.role === "ADMIN") { navigate("/admin") }
       if (stored.role === "EMPLOYEE") { navigate("/dashboard") }
       if (stored.role === "SHOPPER") { navigate("/products") }
     } catch (error) {
@@ -83,7 +83,7 @@ export const SignInPage = () => {
   return (
     <AuthTemplate imageSrc="./icon.png" imageAlt="Sign up illustration">
       <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
-        Sign in
+        Sign In
       </h2>
       <SignInForm
         formData={formData}

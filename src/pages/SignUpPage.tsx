@@ -71,7 +71,7 @@ export const SignUpPage = () => {
     return (
         <AuthTemplate imageSrc="./icon.png" imageAlt="Sign up illustration">
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
-                Sign up
+                Sign Up
             </h2>
             <SignUpForm
                 formData={formData}
