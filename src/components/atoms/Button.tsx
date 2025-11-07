@@ -1,17 +1,26 @@
 import React from "react";
 
-
 type ButtonVariant = "primary" | "secondary" | "outline" | "danger" | "dark";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type NativeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type AnchorButtonProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+};
+
+type ButtonPropsBase = {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
   isLoading?: boolean;
   loadingText?: string;
+  disabled?: boolean;
+  href?: string;
   children: React.ReactNode;
-}
+};
+
+type ButtonProps = ButtonPropsBase &
+  (NativeButtonProps | AnchorButtonProps);
 
 const baseStyles =
   "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg";
@@ -43,6 +52,7 @@ export const Button: React.FC<ButtonProps> = ({
   loadingText = "Procesando...",
   className = "",
   disabled,
+  href,
   children,
   ...props
 }) => {
@@ -56,11 +66,24 @@ export const Button: React.FC<ButtonProps> = ({
     .filter(Boolean)
     .join(" ");
 
+  // Narrow props for correct JSX spread
+  const buttonProps = props as React.ButtonHTMLAttributes<HTMLButtonElement>;
+  const anchorProps = props as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+  // ✅ Render an <a> if href is provided, otherwise a <button>
+  if (href) {
+    return (
+      <a href={href} className={combinedClassName} {...anchorProps}>
+        {isLoading ? loadingText : children}
+      </a>
+    );
+  }
+
   return (
-    <button 
-      className={combinedClassName} 
+    <button
+      className={combinedClassName}
       disabled={disabled || isLoading}
-      {...props}
+      {...buttonProps}
     >
       {isLoading && (
         <svg 

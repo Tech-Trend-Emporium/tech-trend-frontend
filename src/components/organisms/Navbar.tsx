@@ -1,21 +1,20 @@
-import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, Button as FBButton } from "flowbite-react";
+import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, Button as FBButton, Badge } from "flowbite-react";
 import { Logo, Button } from "../../components/atoms";
 import { SearchBar } from "../molecules";
 import LogoutButton from "../atoms/LogoutButton";
 import { useAuth } from "../../hooks/auth/AuthProvider";
-import { isEmployeeOrAdmin, isShopper } from "../../utils/auth/role";
-import { getDisplayNameFromToken } from "../../utils/auth/claims";
 import { IoMdCart } from "react-icons/io";
+import { userNameFromToken, roleFromToken } from "../../services/auth";
 
 type Props = { cartCount?: number };
 export function NavbarComponent({ cartCount = 0 }: Props) {
   const { auth } = useAuth();
-  const username = getDisplayNameFromToken(auth.accessToken);
-  const theme = localStorage.getItem("theme") || "light";
+  const username = userNameFromToken(auth);
+  const role = roleFromToken(auth);
 
   return (
-    <Navbar fluid>
-      <NavbarBrand href="#">
+    <Navbar fluid className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2.5">
+      <NavbarBrand href="/">
         {/* Dark logo */}
         <Logo className="mr-3 h-6 sm:h-9 hidden dark:block" text="white" />
         {/* Light logo */}
@@ -27,26 +26,26 @@ export function NavbarComponent({ cartCount = 0 }: Props) {
 
       <div className="flex md:order-2 items-center gap-2">
         {!auth.isAuthenticated ? (
-          <Button variant="outline" size="sm" className="hover:text-black hover:font-semibold hover:bg-blue-500!">
+          <Button href="/sign-in" variant="outline" size="sm" className="hover:text-black hover:font-semibold hover:bg-blue-500!">
             Login
           </Button>
         ) : (
           <>
-            <span className="text-sm text-gray-600 dark:text-gray-300 mr-2">
-              {isEmployeeOrAdmin(auth.role) ? (auth.role === "ADMIN" ? "Admin" : "Employee") : "Shopper"}
+            <span className="text-sm font-semibold text-gray-600 dark:text-gray-300 mr-2">
+              {role ? (auth.role === "ADMIN" ? "Admin" : "Employee") : "Shopper"}
               {username ? ` · ${username}` : ""}
             </span>
 
-            {isShopper(auth.role) && (
+            {role === 'SHOPPER' && (
               <FBButton pill color="gray" size="sm" className="relative hover:cursor-pointer">
                 <IoMdCart className="h-4 w-4" />
-                <span className="absolute -top-2 -right-2 text-[10px] rounded-full px-1 bg-blue-600 text-white">
+                <Badge className="absolute -top-1.5 -right-1.5 text-[0.75rem] leading-none rounded-full px-1.5 py-1 bg-blue-600 text-white">
                   {cartCount}
-                </span>
+                </Badge>
               </FBButton>
             )}
 
-            {isEmployeeOrAdmin(auth.role) && (
+            {(role === 'EMPLOYEE' || role === 'ADMIN') && (
               <Button
                 variant="outline"
                 size="sm"
