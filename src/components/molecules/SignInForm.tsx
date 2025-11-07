@@ -63,3 +63,5 @@ export const SignInForm = ({
     />
   </Form>
 );
+
+export default SignInForm;

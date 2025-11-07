@@ -1,6 +1,5 @@
 import type { Role } from ".";
 
-
 export interface SignInResponseRaw {
     accessToken: string;
     accessTokenExpiresAtUtc: string;   

@@ -9,7 +9,6 @@ export const storageKey = "auth";
 
 export const readFromStorage = () => {
     try { return JSON.parse(localStorage.getItem(storageKey) || "null"); }
-
     catch { return null; }
 };
 

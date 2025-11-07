@@ -6,10 +6,9 @@ import { useAuth } from "../hooks";
 import type { SignInRequest } from "../models";
 import { AuthTemplate, SignInForm } from "../components";
 
-
 export const SignInPage = () => {
   const navigate = useNavigate();
-  const { signIn } = useAuth(); 
+  const { signIn } = useAuth();
   const [formData, setFormData] = useState({
     emailOrUsername: "",
     password: "",
@@ -50,26 +49,24 @@ export const SignInPage = () => {
         emailOrUsername: formData.emailOrUsername,
         password: formData.password,
       };
-      
+
       await signIn(payload);
-      
+
       const stored = JSON.parse(localStorage.getItem("auth") || "{}");
-      
+
       if (formData.rememberMe && stored.accessToken) {
-        Cookies.set("accessTokenCookie", stored.accessToken, { expires: 7 });
-        Cookies.set("refreshTokenCookie", stored.refreshToken, { expires: 7 });
-        Cookies.set("roleCookie", stored.role, { expires: 7 });
+        Cookies.set("accessToken", stored.accessToken, { expires: 7 });
+        Cookies.set("refreshToken", stored.refreshToken, { expires: 7 });
       }
 
       if (stored.accessToken) {
-        sessionStorage.setItem("accessTokenCookie", stored.accessToken);
-        sessionStorage.setItem("refreshTokenCookie", stored.refreshToken);
-        sessionStorage.setItem("roleCookie", stored.role);
+        sessionStorage.setItem("accessToken", stored.accessToken);
+        sessionStorage.setItem("refreshToken", stored.refreshToken);
       }
-      
-      if (stored.role === "ADMIN") {navigate("/sign-up")}
-      if (stored.role === "EMPLOYEE") {navigate("/products")}
-      if (stored.role === "SHOPPER") {navigate("/")}
+
+      if (stored.role === "ADMIN") { navigate("/sign-up") }
+      if (stored.role === "EMPLOYEE") { navigate("/dashboard") }
+      if (stored.role === "SHOPPER") { navigate("/products") }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setErrorMessage(
