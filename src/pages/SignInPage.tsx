@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { AuthService } from "../services";
-import type { SignInRequest, SignInResponse } from "../models";
+import { useAuth } from "../hooks";
+import type { SignInRequest } from "../models";
 import { AuthTemplate, SignInForm } from "../components";
 
 
 export const SignInPage = () => {
   const navigate = useNavigate();
+  const { signIn } = useAuth(); 
   const [formData, setFormData] = useState({
     emailOrUsername: "",
     password: "",
@@ -49,21 +50,26 @@ export const SignInPage = () => {
         emailOrUsername: formData.emailOrUsername,
         password: formData.password,
       };
-      const response: SignInResponse = await AuthService.signIn(payload);
-
-      if (formData.rememberMe) {
-        Cookies.set("accessTokenCookie", response.accessToken, { expires: 7 });
-        Cookies.set("refreshTokenCookie", response.refreshToken, { expires: 7 });
-        Cookies.set("roleCookie", response.role, { expires: 7 });
+      
+      await signIn(payload);
+      
+      const stored = JSON.parse(localStorage.getItem("auth") || "{}");
+      
+      if (formData.rememberMe && stored.accessToken) {
+        Cookies.set("accessTokenCookie", stored.accessToken, { expires: 7 });
+        Cookies.set("refreshTokenCookie", stored.refreshToken, { expires: 7 });
+        Cookies.set("roleCookie", stored.role, { expires: 7 });
       }
 
-      sessionStorage.setItem("accessTokenCookie", response.accessToken);
-      sessionStorage.setItem("refreshTokenCookie", response.refreshToken);
-      sessionStorage.setItem("roleCookie", response.role);
+      if (stored.accessToken) {
+        sessionStorage.setItem("accessTokenCookie", stored.accessToken);
+        sessionStorage.setItem("refreshTokenCookie", stored.refreshToken);
+        sessionStorage.setItem("roleCookie", stored.role);
+      }
       
-      if (response.role === "ADMIN") {navigate("/sign-up")}
-      if (response.role === "EMPLOYEE") {navigate("/products")}
-      if (response.role === "SHOPPER") {navigate("/")}
+      if (stored.role === "ADMIN") {navigate("/sign-up")}
+      if (stored.role === "EMPLOYEE") {navigate("/products")}
+      if (stored.role === "SHOPPER") {navigate("/")}
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setErrorMessage(

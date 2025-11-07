@@ -32,6 +32,7 @@ export const SignInForm = ({
       variant: "dark",
     }}
     errorMessage={errorMessage}
+    className="space-y-1"
   >
     <InputField
       id="emailOrUsername"
