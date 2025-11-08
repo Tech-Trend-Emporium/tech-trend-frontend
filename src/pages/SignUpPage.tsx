@@ -1,68 +1,123 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { AuthTemplate } from "../components";
-import { SignUpForm } from "../components/molecules/SignUpForm";
+import { securityQuestions, SignUpForm } from "../components/molecules/SignUpForm";
+import type { SignUpRequest } from "../models";
+import { useAuth } from "../hooks";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 export const SignUpPage = () => {
+    const navigate = useNavigate();
+    const { signUp } = useAuth();
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
+        securityQuestion: "",
+        securityAnswer: "",
     });
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        securityQuestion: "",
+        securityAnswer: "",
+    });
     const [isLoading, setIsLoading] = useState(false);
+    const [formError, setformError] = useState<string | null>(null);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    
+
+    const handleSelect = (value: string) => {
+        setFormData((prev) => ({ ...prev, securityQuestion: value }));
+    };
+    const validateField = (name: string, value: string) => {
+  let message = "";
+
+  switch (name) {
+    case "username":
+      if (!value.trim()) message = "Username is required";
+      break;
+    case "email":
+      if (!emailRegex.test(value)) message = "Enter a valid email address";
+      break;
+    case "password":
+      if (!passwordRegex.test(value))
+        message =
+          "Password must have at least 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 special char (no spaces)";
+      break;
+    case "confirmPassword":
+      if (value !== formData.password) message = "Passwords do not match";
+      break;
+    case "securityQuestion":
+      if (!value.trim()) message = "Select a security question";
+      break;
+    case "securityAnswer":
+      if (!value.trim()) message = "Provide an answer";
+      break;
+  }
+
+  // update errors
+  setErrorMessage((prev) => ({ ...prev, [name]: message }));
+};
+const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
-        if (errorMessage) setErrorMessage(null);
+        validateField(name, value);
     };
 
-    const validateForm = (): boolean => {
-        if (!formData.username.trim()) {
-            setErrorMessage("Username is required");
-            return false;
-        } if (!formData.email.trim() || !formData.email.includes("@")) {
-            setErrorMessage("Valid email is required");
-            return false;
-        } if (formData.password.length < 6) {
-            setErrorMessage("Password must be at least 6 characters");
-            return false;
-        } if (formData.password !== formData.confirmPassword) {
-            setErrorMessage("Passwords do not match");
-            return false;
-        }
-        return true;
-    };
-
-    const isFormValid =
+    const isFormValid = (() => {
+        const isEmailValid = emailRegex.test(formData.email);
+        const isPasswordValid = formData.password.length >= 6;
+        return (isEmailValid && isPasswordValid && (formData.password === formData.confirmPassword)
+                && (securityQuestions.includes(formData.securityQuestion)) && Boolean(formData.securityAnswer.trim()) 
+                && Boolean(formData.username.trim()));
+    }) ();
+/*
         formData.username.trim() !== "" &&
         formData.email.trim() !== "" &&
         formData.email.includes("@") &&
         formData.password.length >= 6 &&
         formData.password === formData.confirmPassword;
-
+*/
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         
-        if (!validateForm()) return;
+         Object.entries(formData).forEach(([name, value]) =>
+        validateField(name, value));
 
+        const hasErrors = Object.values(errorMessage).some((err) => err !== "");
+        if (hasErrors) return;
+
+        const payload: SignUpRequest = {
+            email : formData.email,
+            username : formData.username,
+            password : formData.password};
+        
         setIsLoading(true);
-        setErrorMessage(null);
-
+        
+        
         try {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            
-            console.log("Registration successful:", formData);
+            const response = await signUp(payload);
+            console.log(response);
+            navigate('/sign-in');
         } catch (error) {
-            setErrorMessage(
-                error instanceof Error ? error.message : "Registration failed. Please try again."
-            );
+            if (axios.isAxiosError(error)) {
+            setformError(error.response?.status === 409
+            ? `Error ${error.response?.status}: Conflict, may username and/or email are already taken, try again.`
+            : `Error ${error.response?.status}: Sign up error, try again later.`);
+
+            console.log(formData);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -78,8 +133,10 @@ export const SignUpPage = () => {
                 errorMessage={errorMessage}
                 isFormValid={isFormValid}
                 isLoading={isLoading}
+                formError={formError}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                handleSelect={handleSelect}
             />
         </AuthTemplate>
     );
