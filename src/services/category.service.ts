@@ -22,12 +22,12 @@ export const CategoryService = {
     },
 
     list: (opts?: { skip?: number; take?: number }): Promise<Page<CategoryResponse>> => {
-        return http.get<{ Total: number; Items: CategoryResponseRaw[] }>(`${ BASE }`, {
+        return http.get<Page<CategoryResponseRaw>>(`${ BASE }`, {
                         params: { skip: opts?.skip ?? 0, take: opts?.take ?? 50 },
                     })
                     .then(r => ({
-                        total: r.data.Total,
-                        items: r.data.Items.map(mapCategory),
+                        total: r.data.total,
+                        items: r.data.items.map(mapCategory),
                     }));
     },
 
